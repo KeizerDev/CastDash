@@ -7,6 +7,6 @@ Build with:
 
 ## Run
 Run with:
-``./bin/www``
+``node app.js``
 
 Then go to 127.0.0.1:3000

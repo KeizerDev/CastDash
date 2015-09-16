@@ -5,10 +5,37 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+
+var scanner = require('chromecast-scanner');
+scanner(function(err, service) {
+  console.log('chromecast %s running on: %s',
+      service.name,
+      service.data);
+});
+
+
+var isPlaying = false;
+
+io.on('connection', function(socket) {
+
+  io.emit('playState', isPlaying);
+  console.log('got it');
+
+  socket.on('setPlayState', function(data) {
+      isPlaying = data;
+      io.emit('playState', isPlaying);
+  });
+
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +48,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', routes);
 app.use('/users', users);
@@ -57,4 +85,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+//listen on port 3000
+server.listen(3000);
+

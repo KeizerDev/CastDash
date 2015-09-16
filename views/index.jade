@@ -1,5 +1,11 @@
 extends layout
 
+mixin listItem(name)
+  li.pet= name
+ul
+
 block content
   h1= title
   p Welcome YOLO to #{title}
+  +listItem('test')
+  button(id='playButton')

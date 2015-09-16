@@ -13,24 +13,76 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+var scanner = require('chromecast-scanner');
+var chromeplayer = require('chromecast-player');
+
+var media = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/ED_1280.mp4';
+
+var player = chromeplayer(chromeCasts);
+var currentPlay;
+
+
+player.launch(media, function(err, p) {
+  p.once('playing', function() {
+    console.log('playback has started.');
+  });
+  currentPlay = p;
+});
+
+
 var isPlaying = false;
 var volume = 100;
+var chromeCasts = [];
+
 io.on('connection', function(socket) {
 
   io.emit('playState', isPlaying);
   io.emit('volumeState', volume);
 
+  socket.on('searchChromecast', function(data) {
+    scanner(function(err, service) {
+        if(err){
+          console.log(err);
+        }else {
+          console.log(service);
+          chromeCasts = service;
+        }
+    });
+
+    io.emit('chromecasts', service);
+  });
+
   socket.on('setPlayState', function(data) {
       isPlaying = data;
+
+      if(isPlaying == false) {
+        currentPlay.play();
+      }else {
+        currentPlay.pause();
+      }
+
       io.emit('playState', isPlaying);
   });
 
   socket.on('setVolume', function(value) {
       volume = value;
+      currentPlay.setVolume(2);
       io.emit('volumeState', volume);
   });
 
 });
+
+
+
+scanner(function(err, service) {
+  if(err){
+    console.log(err);
+  }else {
+    console.log(service);
+    chromeCasts = service;
+  }
+});
+
 
 
 // view engine setup

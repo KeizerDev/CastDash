@@ -13,21 +13,10 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-
-var scanner = require('chromecast-scanner');
-scanner(function(err, service) {
-  console.log('chromecast %s running on: %s',
-      service.name,
-      service.data);
-});
-
-
 var isPlaying = false;
 
 io.on('connection', function(socket) {
-
   io.emit('playState', isPlaying);
-  console.log('got it');
 
   socket.on('setPlayState', function(data) {
       isPlaying = data;

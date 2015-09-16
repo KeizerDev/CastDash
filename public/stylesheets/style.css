@@ -1,8 +1,14 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.grid-panel {
+	max-width: 800px;
+	margin: 0 auto;
 }
 
-a {
-  color: #00B7FF;
+.player-controls {
+	padding: 0;
+}
+
+.player-controls li {
+	display: inline-block;
+	width: calc(100% / 3);
+	text-align: center;
 }

@@ -1,5 +1,44 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome YOLO to #{title}
+  .mdl-tabs.mdl-js-tabs.mdl-js-ripple-effect
+   .mdl-tabs__tab-bar
+      a.mdl-tabs__tab.is-active(href='#search-panel') Search
+      a.mdl-tabs__tab(href='#options-panel') Options
+    #search-panel.mdl-tabs__panel.is-active
+      .mdl-grid.grid-panel
+        .mdl-cell.mdl-cell--6-col
+          .search-panel
+            .mdl-card.mdl-shadow--2dp
+              .mdl-card__supporting-text
+                form(action='#').mdl-textfield.mdl-js-textfield
+                  input#tracksearch.mdl-textfield__input(type='text')
+                  label.mdl-textfield__label(for='tracksearch') Search..
+
+
+                ul
+                  li John Lennon (1940-1980)
+                  li Paul McCartney (1942-)
+                  li George Harrison (1943-2001)
+                  li Ringo Starr (1940-)
+
+        .mdl-cell.mdl-cell--6-col
+          .player-panel
+            .mdl-card.mdl-shadow--2dp
+              .mdl-card__supporting-text
+                p(style='text-align:center') Doin' It Right (feat. Panda Bear)
+                p(style='text-align:center')
+                  b Daft Punk
+
+                input.mdl-slider.mdl-js-slider(type='range', min='0', max='100', value='0', tabindex='0')
+                ul.player-controls
+                  li 
+                    i.material-icons skip_previous
+                  li
+                    i.material-icons play_circle_filled
+                  li 
+                    i.material-icons skip_next
+
+      
+    #options-panel.mdl-tabs__panel
+      

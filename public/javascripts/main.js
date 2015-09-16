@@ -12,6 +12,10 @@ jQuery(document).ready(function($) {
         }
     });
 
+    socket.on('volumeState', function(value) {
+        volume.get(0).MaterialSlider.change(value);
+    });
+
 
     playButton.on('click', function() {
         if(playButton.html() == 'play_circle_filled') {
@@ -23,7 +27,7 @@ jQuery(document).ready(function($) {
 
 
     volume.on('change input', function() {
-        console.log(this.value);
+        socket.emit('setVolume', this.value);
     });
 
 

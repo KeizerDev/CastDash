@@ -14,13 +14,20 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var isPlaying = false;
-
+var volume = 100;
 io.on('connection', function(socket) {
+
   io.emit('playState', isPlaying);
+  io.emit('volumeState', volume);
 
   socket.on('setPlayState', function(data) {
       isPlaying = data;
       io.emit('playState', isPlaying);
+  });
+
+  socket.on('setVolume', function(value) {
+      volume = value;
+      io.emit('volumeState', volume);
   });
 
 });

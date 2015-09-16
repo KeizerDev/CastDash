@@ -7,4 +7,6 @@ Build with:
 
 ## Run
 Run with:
-``node bin/www``
+``./bin/www``
+
+Then go to 127.0.0.1:3000

@@ -1,5 +1,9 @@
 extends layout
 
+mixin listItem(name)
+  li.pet= name
+ul
+
 block content
   .mdl-tabs.mdl-js-tabs.mdl-js-ripple-effect
    .mdl-tabs__tab-bar
@@ -35,10 +39,9 @@ block content
                   li 
                     i.material-icons skip_previous
                   li
-                    i.material-icons play_circle_filled
+                    i#playButton.material-icons play_circle_filled
                   li 
                     i.material-icons skip_next
 
       
     #options-panel.mdl-tabs__panel
-      

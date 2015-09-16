@@ -39,3 +39,14 @@ block content
                     i.material-icons skip_next
                           
     #options-panel.mdl-tabs__panel
+      .mdl-grid.grid-panel
+        .mdl-cell.mdl-cell--6-col
+          .chromecast-panel
+            .mdl-card.mdl-shadow--2dp
+              .mdl-card__supporting-text
+                p 
+                  b Chromecasts found in network:
+
+                label.mdl-radio.mdl-js-radio.mdl-js-ripple-effect(for='option-1')
+                  input#option-1.mdl-radio__button(type='radio', name='options', value='1', checked='')
+                  span.mdl-radio__label ChromecastRob

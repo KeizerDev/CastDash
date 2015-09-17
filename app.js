@@ -66,7 +66,7 @@ io.on('connection', function(socket) {
 
   socket.on('setVolume', function(value) {
       volume = value;
-      currentPlay.setVolume(2);
+      currentPlay.setVolume((volume / 100));
       io.emit('volumeState', volume);
   });
 

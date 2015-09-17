@@ -18,6 +18,11 @@
 }
 
 .search-results ul .song-item {
-    border-bottom: 1px;
+    /*border-bottom: 1px solid black;*/
     list-style: none;
+    padding: 10px 5px;
+}
+
+.search-results ul .song-item:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
 }

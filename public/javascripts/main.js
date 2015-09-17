@@ -55,7 +55,7 @@ jQuery(document).ready(function($) {
             $.get('templates/tracks.hbs', function (templateData) {
                 var template = Handlebars.compile(templateData);
                 $('.search-results').html(template(json));
-                $('.songItem').each(function() {
+                $('.song-item').each(function() {
                     $(this).click(function() {
                         socket.emit('playSong', $(this).attr('url'));
                     });

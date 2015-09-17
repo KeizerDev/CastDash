@@ -30,11 +30,10 @@ jQuery(document).ready(function($) {
     });
     $('.search-form').submit(function(event) {
         searchVal = $('.search-form input').val();
-        $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json, textStatus) {
-            $('ul.search-results').html('');
-            receivedData = json;
-            $.each(json.tracks, function(index,value) {
-                $('ul.search-results').append('<li class="song">'+value.artist+' - '+value.track+'</li>')
+        $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json) {
+            $.get('templates/tracks.hbs', function (templateData) {
+                var template = Handlebars.compile(templateData);
+                $('.search-results').html(template(json));
             });
         });
         event.preventDefault();

@@ -18,5 +18,6 @@
 }
 
 .search-results ul li {
+    border-bottom: 1px;
     list-style: none;
 }

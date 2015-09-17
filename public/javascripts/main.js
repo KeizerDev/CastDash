@@ -38,6 +38,17 @@ jQuery(document).ready(function($) {
         socket.emit('setVolume', this.value);
     });
 
+
+    socket.on('newSong',function(url){
+        if(currentAudio != null) {
+            currentAudio.pause();
+        }
+
+        currentAudio = new Audio(url);
+        currentAudio.play();
+        socket.emit('setPlayState', false);
+    });
+
     $('.search-form').submit(function(event) {
         searchVal = $('.search-form input').val();
         $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json) {
@@ -45,7 +56,9 @@ jQuery(document).ready(function($) {
                 var template = Handlebars.compile(templateData);
                 $('.search-results').html(template(json));
                 $('.songItem').each(function() {
-                    $(this).click(playSong);
+                    $(this).click(function() {
+                        socket.emit('playSong', $(this).attr('url'));
+                    });
                 })
             });
         });
@@ -53,19 +66,5 @@ jQuery(document).ready(function($) {
     });
 
 
-
-    function playSong() {
-       if(currentAudio == null) {
-           currentAudio = new Audio($(this).attr('url'));
-       }
-
-        $('#currentTrack').html($(this).find('.track').html());
-        $('#currentArtist').html($(this).find('.artist').html());
-
-        currentAudio.pause();
-        currentAudio = new Audio($(this).attr('url'));
-        currentAudio.play();
-        socket.emit('setPlayState', false);
-    }
 
 });

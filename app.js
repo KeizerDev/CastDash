@@ -17,7 +17,8 @@ var ioHandler = require('./lib/io');
 
 var data = {
   isPlaying : false,
-  volume: 100
+  volume: 100,
+  songURL: ''
 };
 
 // listens for io connection and creates a new ioHandler instance.

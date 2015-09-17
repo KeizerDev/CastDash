@@ -32,9 +32,9 @@ jQuery(document).ready(function($) {
 
     $('.search-form').submit(function(event) {
         searchVal = $('.search-form input').val();
-        $.getJSON(window.location + 'pleer/' + searchVal, function(json, textStatus) {
+        $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json, textStatus) {
             $('ul.search-results').html('');
-            console.log(json)
+            console.log(json);
             $.each(json.tracks, function(index,value) {
                 $('ul.search-results').append('<li>'+value.artist+' - '+value.track+'</li>')
             });

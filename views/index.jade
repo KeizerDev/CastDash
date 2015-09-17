@@ -21,9 +21,9 @@ block content
           .player-panel
             .mdl-card.mdl-shadow--2dp
               .mdl-card__supporting-text
-                p(style='text-align:center') Doin' It Right (feat. Panda Bear)
+                p#currentTrack(style='text-align:center') Doin' It Right (feat. Panda Bear)
                 p(style='text-align:center')
-                  b Daft Punk
+                  b#currentArtist Daft Punk
 
                 input#volume.mdl-slider.mdl-js-slider(type='range', min='0', max='100', value='0', tabindex='0')
                 ul.player-controls

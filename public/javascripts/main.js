@@ -33,10 +33,11 @@ jQuery(document).ready(function($) {
     $('.search-form').submit(function(event) {
         searchVal = $('.search-form input').val();
         $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json, textStatus) {
-            $('ul.search-results').html('');
-            console.log(json);
+            $('ul .search-results').html('');
+            template = Handlebars.templates.tracks;
+            console.log(template);
             $.each(json.tracks, function(index,value) {
-                $('ul.search-results').append('<li>'+value.artist+' - '+value.track+'</li>')
+                $('.search-results ul').append('<li>'+value.artist+' - '+value.track+'</li>')
             });
         });
         event.preventDefault();

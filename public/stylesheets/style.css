@@ -1,14 +1,22 @@
 .grid-panel {
-	max-width: 800px;
-	margin: 0 auto;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .player-controls {
-	padding: 0;
+    padding: 0;
 }
 
 .player-controls li {
-	display: inline-block;
-	width: calc(100% / 3);
-	text-align: center;
+    display: inline-block;
+    width: calc(100% / 3);
+    text-align: center;
+}
+
+.search-results ul {
+    padding: 0;
+}
+
+.search-results ul li {
+    list-style: none;
 }

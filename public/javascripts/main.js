@@ -6,9 +6,9 @@ jQuery(document).ready(function($) {
     var currentAudio = null;
 
     socket.on('playState', function(data) {
-        if(data == true) {
+        if (data == true) {
             $('#playButton').html('play_circle_filled');
-        }else if(data == false) {
+        } else if(data == false) {
             $('#playButton').html('pause');
         }
     });
@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
     playButton.on('click', function() {
         if(playButton.html() == 'play_circle_filled') {
             socket.emit('setPlayState', false);
-        }else if(playButton.html() == 'pause') {
+        } else if(playButton.html() == 'pause') {
             socket.emit('setPlayState', true);
         }
     });
@@ -28,7 +28,6 @@ jQuery(document).ready(function($) {
     volume.on('change input', function() {
         socket.emit('setVolume', this.value);
     });
-
     $('.search-form').submit(function(event) {
         searchVal = $('.search-form input').val();
         $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json, textStatus) {

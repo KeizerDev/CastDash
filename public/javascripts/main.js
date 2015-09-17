@@ -7,12 +7,12 @@ jQuery(document).ready(function($) {
 
     socket.on('playState', function(data) {
         if (data == true) {
-            if(currentAudio != null) {
+            if (currentAudio != null) {
                 currentAudio.pause();
             }
             $('#playButton').html('play_circle_filled');
-        } else if(data == false) {
-            if(currentAudio != null) {
+        } else if (data == false) {
+            if (currentAudio != null) {
                 currentAudio.play();
             }
             $('#playButton').html('pause');
@@ -20,14 +20,14 @@ jQuery(document).ready(function($) {
     });
 
     socket.on('volumeState', function(value) {
-        if(currentAudio != null) {
+        if (currentAudio != null) {
             currentAudio.volume = (value / 100);
         }
         volume.get(0).MaterialSlider.change(value);
     });
 
     playButton.on('click', function() {
-        if(playButton.html() == 'play_circle_filled') {
+        if (playButton.html() == 'play_circle_filled') {
             socket.emit('setPlayState', false);
         } else if(playButton.html() == 'pause') {
             socket.emit('setPlayState', true);
@@ -64,7 +64,4 @@ jQuery(document).ready(function($) {
         });
         event.preventDefault();
     });
-
-
-
 });

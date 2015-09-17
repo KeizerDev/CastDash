@@ -29,15 +29,12 @@ jQuery(document).ready(function($) {
     volume.on('change input', function() {
         socket.emit('setVolume', this.value);
     });
-
     $('.search-form').submit(function(event) {
         searchVal = $('.search-form input').val();
-        $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json, textStatus) {
-            $('ul .search-results').html('');
-            template = Handlebars.templates.tracks;
-            console.log(template);
-            $.each(json.tracks, function(index,value) {
-                $('.search-results ul').append('<li>'+value.artist+' - '+value.track+'</li>')
+        $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json) {
+            $.get('templates/tracks.hbs', function (templateData) {
+                var template = Handlebars.compile(templateData);
+                $('.search-results').html(template(json));
             });
         });
         event.preventDefault();

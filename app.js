@@ -20,6 +20,7 @@ var data = {
   volume: 100
 };
 
+// listens for io connection and creates a new ioHandler instance.
 io.on('connection', function(socket) {
   new ioHandler(io, socket, data);
 });

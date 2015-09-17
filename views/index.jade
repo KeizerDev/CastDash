@@ -11,15 +11,11 @@ block content
           .search-panel
             .mdl-card.mdl-shadow--2dp
               .mdl-card__supporting-text
-                form(action='#').mdl-textfield.mdl-js-textfield
+                form(action='#s').mdl-textfield.mdl-js-textfield.search-form
                   input#tracksearch.mdl-textfield__input(type='text')
                   label.mdl-textfield__label(for='tracksearch') Search..
 
-                ul
-                  li John Lennon (1940-1980)
-                  li Paul McCartney (1942-)
-                  li George Harrison (1943-2001)
-                  li Ringo Starr (1940-)
+                ul.search-results
 
         .mdl-cell.mdl-cell--6-col
           .player-panel

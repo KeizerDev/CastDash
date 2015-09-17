@@ -3,6 +3,7 @@ jQuery(document).ready(function($) {
 
     var playButton = $('#playButton');
     var volume  = $('#volume');
+    var currentAudio = null;
 
     socket.on('playState', function(data) {
         if(data == true) {
@@ -16,7 +17,6 @@ jQuery(document).ready(function($) {
         volume.get(0).MaterialSlider.change(value);
     });
 
-
     playButton.on('click', function() {
         if(playButton.html() == 'play_circle_filled') {
             socket.emit('setPlayState', false);
@@ -24,7 +24,6 @@ jQuery(document).ready(function($) {
             socket.emit('setPlayState', true);
         }
     });
-
 
     volume.on('change input', function() {
         socket.emit('setVolume', this.value);
@@ -34,12 +33,14 @@ jQuery(document).ready(function($) {
         searchVal = $('.search-form input').val();
         $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json, textStatus) {
             $('ul.search-results').html('');
-            console.log(json);
+            receivedData = json;
             $.each(json.tracks, function(index,value) {
-                $('ul.search-results').append('<li>'+value.artist+' - '+value.track+'</li>')
+                $('ul.search-results').append('<li class="song">'+value.artist+' - '+value.track+'</li>')
             });
         });
         event.preventDefault();
     });
+
+
 
 });

@@ -39,6 +39,10 @@ jQuery(document).ready(function($) {
     });
 
 
+    socket.on('clientsConnected', function(amount) {
+        //todo: bind the amount of users to the DOM
+    });
+
     socket.on('newSong',function(url){
         if(currentAudio != null) {
             currentAudio.pause();

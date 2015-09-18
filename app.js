@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 
 var app = express();
@@ -8,10 +10,12 @@ var io = require('socket.io')(server);
 var ioHandler = require('./lib/io');
 var application = require('./lib/application');
 
+//player data
 var data = {
   isPlaying : false,
   volume: 100,
-  songURL: ''
+  songURL: '',
+  clientsConnected: 0
 };
 
 // listens for io connection and creates a new ioHandler instance.

@@ -1,5 +1,5 @@
 # CastDash
-Dashboard for streaming music to your Chromecast.
+Dashboard for chromecast and collaborative music playing.
 
 ## Build
 Build with:

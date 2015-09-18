@@ -5,6 +5,9 @@ jQuery(document).ready(function($) {
     var volume  = $('#volume');
     var currentAudio = null;
 
+    var currentArtist = $('#currentArtist');
+    var currentTrack = $('#currentTrack');
+
     socket.on('playState', function(data) {
         if (data == true) {
             if (currentAudio != null) {
@@ -39,16 +42,29 @@ jQuery(document).ready(function($) {
     });
 
 
-    socket.on('newSong',function(url){
+    socket.on('clientsConnected', function(amount) {
+        //todo: bind the amount of users to the DOM
+    });
+
+    socket.on('newSong',function(id, artist, track){
         if(currentAudio != null) {
             currentAudio.pause();
         }
 
-        currentAudio = new Audio(url);
+        currentArtist.html(artist);
+        currentTrack.html(track);
+
+        currentAudio = new Audio('http://pleer.com/browser-extension/files/' + id + '.mp3');
         currentAudio.play();
         currentAudio.volume = volume.get(0).MaterialSlider.element_.value / 100;
         socket.emit('setPlayState', false);
+
+        currentAudio.addEventListener('timeupdate', function() {
+           console.log(this.currentTime);
+        });
     });
+
+
 
     $('.search-form').submit(function(event) {
         searchVal = $('.search-form input').val();
@@ -58,7 +74,7 @@ jQuery(document).ready(function($) {
                 $('.search-results').html(template(json));
                 $('.song-item').each(function() {
                     $(this).click(function() {
-                        socket.emit('playSong', $(this).data('id'));
+                        socket.emit('playSong', $(this).data('id'), $(this).data('artist'), $(this).data('track'));
                     });
                 })
             });

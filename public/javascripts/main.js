@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
         //todo: bind the amount of users to the DOM
     });
 
-    socket.on('newSong',function(url, artist, track){
+    socket.on('newSong',function(id, artist, track){
         if(currentAudio != null) {
             currentAudio.pause();
         }
@@ -54,8 +54,9 @@ jQuery(document).ready(function($) {
         currentArtist.html(artist);
         currentTrack.html(track);
 
-        currentAudio = new Audio(url);
+        currentAudio = new Audio('http://pleer.com/browser-extension/files/' + id + '.mp3');
         currentAudio.play();
+        currentAudio.volume = volume.get(0).MaterialSlider.element_.value / 100;
         socket.emit('setPlayState', false);
 
         currentAudio.addEventListener('timeupdate', function() {
@@ -73,7 +74,7 @@ jQuery(document).ready(function($) {
                 $('.search-results').html(template(json));
                 $('.song-item').each(function() {
                     $(this).click(function() {
-                        socket.emit('playSong', $(this).attr('url'), $(this).find('.artist').html(), $(this).find('.track').html());
+                        socket.emit('playSong', $(this).data('id'), $(this).data('artist'), $(this).data('track'));
                     });
                 })
             });

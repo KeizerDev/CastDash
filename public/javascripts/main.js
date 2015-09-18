@@ -5,6 +5,9 @@ jQuery(document).ready(function($) {
     var volume  = $('#volume');
     var currentAudio = null;
 
+    var currentArtist = $('#currentArtist');
+    var currentTrack = $('#currentTrack');
+
     socket.on('playState', function(data) {
         if (data == true) {
             if (currentAudio != null) {
@@ -43,10 +46,13 @@ jQuery(document).ready(function($) {
         //todo: bind the amount of users to the DOM
     });
 
-    socket.on('newSong',function(url){
+    socket.on('newSong',function(url, artist, track){
         if(currentAudio != null) {
             currentAudio.pause();
         }
+
+        currentArtist.html(artist);
+        currentTrack.html(track);
 
         currentAudio = new Audio(url);
         currentAudio.play();
@@ -61,7 +67,7 @@ jQuery(document).ready(function($) {
                 $('.search-results').html(template(json));
                 $('.song-item').each(function() {
                     $(this).click(function() {
-                        socket.emit('playSong', $(this).attr('url'));
+                        socket.emit('playSong', $(this).attr('url'), $(this).find('.artist').html(), $(this).find('.track').html());
                     });
                 })
             });

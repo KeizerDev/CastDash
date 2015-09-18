@@ -1,5 +1,3 @@
-'use strict';
-
 var express = require('express');
 
 var app = express();
@@ -15,7 +13,9 @@ var data = {
   isPlaying : false,
   volume: 100,
   songURL: '',
-  clientsConnected: 0
+  clientsConnected: 0,
+  artist: '',
+  track: ''
 };
 
 // listens for io connection and creates a new ioHandler instance.

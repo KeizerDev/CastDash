@@ -46,6 +46,7 @@ jQuery(document).ready(function($) {
 
         currentAudio = new Audio(url);
         currentAudio.play();
+        currentAudio.volume = volume.get(0).MaterialSlider.element_.value / 100;
         socket.emit('setPlayState', false);
     });
 
@@ -57,7 +58,7 @@ jQuery(document).ready(function($) {
                 $('.search-results').html(template(json));
                 $('.song-item').each(function() {
                     $(this).click(function() {
-                        socket.emit('playSong', $(this).attr('url'));
+                        socket.emit('playSong', $(this).data('id'));
                     });
                 })
             });

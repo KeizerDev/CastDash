@@ -16,6 +16,7 @@ var data = {
   clientsConnected: 0,
   artist: '',
   track: ''
+
 };
 
 // listens for io connection and creates a new ioHandler instance.

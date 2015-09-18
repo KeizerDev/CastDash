@@ -57,7 +57,13 @@ jQuery(document).ready(function($) {
         currentAudio = new Audio(url);
         currentAudio.play();
         socket.emit('setPlayState', false);
+
+        currentAudio.addEventListener('timeupdate', function() {
+           console.log(this.currentTime);
+        });
     });
+
+
 
     $('.search-form').submit(function(event) {
         searchVal = $('.search-form input').val();

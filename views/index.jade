@@ -5,7 +5,14 @@ block content
     // Header
     header.mdl-layout__header
       .mdl-layout__header-row
+        // Title
         span.mdl-layout-title CastDash
+        // Add spacer, to align navigation to the right
+        .mdl-layout-spacer
+        // Navigation
+        nav.mdl-navigation
+          a.mdl-navigation__link(href='') ad
+          
       .mdl-layout__tab-bar.mdl-js-ripple-effect
         a.mdl-layout__tab.is-active(href='#search-panel') Search
         a.mdl-layout__tab(href='#options-panel') Options
@@ -21,7 +28,6 @@ block content
                   form(action='#s').mdl-textfield.mdl-js-textfield.search-form
                     input#tracksearch.mdl-textfield__input(type='text')
                     label.mdl-textfield__label(for='tracksearch') Search..
-
                   .search-results
 
             .mdl-cell.mdl-cell--6-col

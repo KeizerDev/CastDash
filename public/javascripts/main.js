@@ -2,11 +2,16 @@ jQuery(document).ready(function($) {
     var socket = io();
 
     var playButton = $('#playButton');
+    var previousButton = $('#previousButton');
+    var nextButton = $('#nextButton');
     var volume  = $('#volume');
     var currentAudio = null;
 
     var currentArtist = $('#currentArtist');
     var currentTrack = $('#currentTrack');
+
+    var currentQueue= [];
+    var currentSongIndex = 0;
 
     socket.on('playState', function(data) {
         if (data == true) {
@@ -37,6 +42,22 @@ jQuery(document).ready(function($) {
         }
     });
 
+
+    previousButton.on('click', function() {
+        if(currentSongIndex != 0) {
+            console.log('playing previous song');
+            socket.emit('requestSong', (currentSongIndex - 1), currentQueue[currentSongIndex]);
+        }
+    });
+
+    nextButton.on('click', function() {
+        if(currentSongIndex != currentQueue.length) {
+            console.log('playing previous song');
+            socket.emit('requestSong', (currentSongIndex + 1), currentQueue[currentSongIndex]);
+        }
+    });
+
+
     volume.on('change input', function() {
         socket.emit('setVolume', this.value);
     });
@@ -47,29 +68,42 @@ jQuery(document).ready(function($) {
     });
 
     socket.on('newSong',function(id, artist, track){
+
+    });
+
+
+
+    socket.on('playSong', function(songIndex, songID, artist, track) {
         if(currentAudio != null) {
             currentAudio.pause();
         }
+        currentSongIndex = songIndex;
 
         currentArtist.html(artist);
         currentTrack.html(track);
 
-        currentAudio = new Audio('http://pleer.com/browser-extension/files/' + id + '.mp3');
+        currentAudio = new Audio('http://pleer.com/browser-extension/files/' + songID + '.mp3');
         currentAudio.play();
         currentAudio.volume = volume.get(0).MaterialSlider.element_.value / 100;
         socket.emit('setPlayState', false);
 
         currentAudio.addEventListener('timeupdate', function() {
-           console.log(this.currentTime);
+            console.log(this.currentTime);
         });
     });
 
 
     socket.on('updateQueue', function(queue) {
-            $.get('templates/queue.hbs', function (templateData) {
-                var template = Handlebars.compile(templateData);
-                $('.queue-list').html(template({tracks: queue}));
-            });
+        currentQueue = queue;
+        $.get('templates/queue.hbs', function (templateData) {
+            var template = Handlebars.compile(templateData);
+            $('.queue-list').html(template({tracks: queue}));
+        });
+
+        if(queue.length == 1) {
+            currentAudio = new Audio('http://pleer.com/browser-extension/files/' + queue[0].songID + '.mp3');
+            currentAudio.play();
+        }
     });
 
     $('.search-form').submit(function(event) {
@@ -89,4 +123,5 @@ jQuery(document).ready(function($) {
         });
         event.preventDefault();
     });
+
 });

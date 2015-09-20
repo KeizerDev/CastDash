@@ -12,11 +12,11 @@ var application = require('./lib/application');
 var data = {
   isPlaying : false,
   volume: 100,
-  songURL: '',
   clientsConnected: 0,
   artist: '',
   track: '',
-  queue: []
+  queue: [],
+  currentPlaying: []
 };
 
 data.queue.tracks = [];

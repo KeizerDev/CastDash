@@ -10,10 +10,10 @@ router.get('/:search', function(req, res) {
     path : '/browser-extension/search?q=' + param,
     port : 80,
     method : 'GET'
-  }
+  };
 
   var request = http.request(options, function(response){
-    var body = ""
+    var body = "";
     response.on('data', function(data) {
       body += data;
     });

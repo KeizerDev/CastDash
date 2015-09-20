@@ -15,9 +15,13 @@ var data = {
   songURL: '',
   clientsConnected: 0,
   artist: '',
-  track: ''
-
+  track: '',
+  queue: []
 };
+
+data.queue.tracks = [];
+data.queue.count = 0;
+
 
 // listens for io connection and creates a new ioHandler instance.
 io.on('connection', function(socket) {

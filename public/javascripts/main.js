@@ -65,16 +65,24 @@ jQuery(document).ready(function($) {
     });
 
 
+    socket.on('updateQueue', function(queue) {
+            $.get('templates/queue.hbs', function (templateData) {
+                var template = Handlebars.compile(templateData);
+                $('.queue-list').html(template({tracks: queue}));
+            });
+    });
 
     $('.search-form').submit(function(event) {
         searchVal = $('.search-form input').val();
         $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json) {
+            console.log(json);
             $.get('templates/tracks.hbs', function (templateData) {
                 var template = Handlebars.compile(templateData);
                 $('.search-results').html(template(json));
                 $('.song-item').each(function() {
                     $(this).click(function() {
-                        socket.emit('playSong', $(this).data('id'), $(this).data('artist'), $(this).data('track'));
+                        console.log('adding new song to the queue');
+                        socket.emit('addSong', $(this).data('id'), $(this).data('artist'), $(this).data('track'));
                     });
                 })
             });

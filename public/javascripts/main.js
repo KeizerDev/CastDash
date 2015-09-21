@@ -1,6 +1,8 @@
 jQuery(document).ready(function($) {
     var socket = io();
 
+
+
     var playButton = $('#playButton');
     var previousButton = $('#previousButton');
     var nextButton = $('#nextButton');
@@ -47,6 +49,8 @@ jQuery(document).ready(function($) {
         if(currentSongIndex != 0) {
             console.log('playing previous song');
             socket.emit('requestSong', (currentSongIndex - 1), currentQueue[currentSongIndex - 1]);
+        }else{
+            console.log('cannot click previous song');
         }
     });
 
@@ -54,6 +58,8 @@ jQuery(document).ready(function($) {
         if(currentSongIndex != currentQueue.length) {
             console.log('playing next song');
             socket.emit('requestSong', (currentSongIndex + 1), currentQueue[currentSongIndex + 1]);
+        }else{
+            console.log('cannot click next song');
         }
     });
 
@@ -65,13 +71,8 @@ jQuery(document).ready(function($) {
 
     socket.on('clientsConnected', function(amount) {
         //todo: bind the amount of users to the DOM
+        $('#clients').html(amount);
     });
-
-    socket.on('newSong',function(id, artist, track){
-
-    });
-
-
 
     socket.on('playSong', function(songIndex, songID, artist, track) {
         if(currentAudio != null) {

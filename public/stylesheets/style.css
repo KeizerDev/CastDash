@@ -13,16 +13,23 @@
     text-align: center;
 }
 
-.search-results ul {
+.search-results ul,
+.queue-list ul {
     padding: 0;
 }
 
-.search-results ul .song-item {
-    /*border-bottom: 1px solid black;*/
+.search-results ul .song-item,
+.queue-list ul .song-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
     list-style: none;
     padding: 10px 5px;
 }
 
-.search-results ul .song-item:not(:last-child) {
+.search-results ul .song-item:not(:last-child),
+.queue-list ul .song-item:not(:last-child), {
     border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+}
+
+.musicsearch {
+    width: 100%;
 }

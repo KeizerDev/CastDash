@@ -16,11 +16,8 @@ var data = {
   artist: '',
   track: '',
   queue: [],
-  currentPlaying: []
+  currentPlaying: {}
 };
-
-data.queue.tracks = [];
-data.queue.count = 0;
 
 
 // listens for io connection and creates a new ioHandler instance.

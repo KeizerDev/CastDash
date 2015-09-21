@@ -1,5 +1,7 @@
-<div class="queue-list">
+<ul>
     {{#each tracks}}
-        <li>{{artist}} - {{track}}</li>
+    <li class="song-item section__text" data-id="{{id}}" data-artist="{{artist}}" data-track="{{track}}" data-length="{{length}}">
+        <em class="artist">{{artist}}</em> - <em class="track">{{track}}</em>
+    </li>
     {{/each}}
-</div>
+</ul>

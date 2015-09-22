@@ -47,19 +47,13 @@ jQuery(document).ready(function($) {
 
     previousButton.on('click', function() {
         if(currentSongIndex != 0) {
-            console.log('playing previous song');
             socket.emit('requestSong', (currentSongIndex - 1), currentQueue[currentSongIndex - 1]);
-        }else{
-            console.log('cannot click previous song');
         }
     });
 
     nextButton.on('click', function() {
         if(currentSongIndex != currentQueue.length) {
-            console.log('playing next song');
             socket.emit('requestSong', (currentSongIndex + 1), currentQueue[currentSongIndex + 1]);
-        }else{
-            console.log('cannot click next song');
         }
     });
 
@@ -70,7 +64,6 @@ jQuery(document).ready(function($) {
 
 
     socket.on('clientsConnected', function(amount) {
-        //todo: bind the amount of users to the DOM
         $('#clients').html(amount);
     });
 
@@ -78,12 +71,11 @@ jQuery(document).ready(function($) {
         if(currentAudio != null) {
             currentAudio.pause();
         }
+
         currentSongIndex = songIndex;
 
         currentArtist.html(artist);
         currentTrack.html(track);
-
-        console.log(currentQueue[currentSongIndex]);
 
         currentAudio = new Audio('http://pleer.com/browser-extension/files/' + songID + '.mp3');
         currentAudio.play();
@@ -98,8 +90,6 @@ jQuery(document).ready(function($) {
             var template = Handlebars.compile(templateData);
             $('.queue-list').html(template({tracks: queue}));
         });
-
-        console.log(currentQueue);
 
         if(queue.length == 1) {
             socket.emit('requestSong', currentSongIndex, currentQueue[0]);

@@ -65,6 +65,8 @@ jQuery(document).ready(function($) {
 
     socket.on('clientsConnected', function(amount) {
         $('#clients').html(amount);
+        // $.data('.users-badge', 'badge', '3')
+        document.querySelector('.users-badge').dataset.badge = amount;
     });
 
     socket.on('playSong', function(songIndex, songID, artist, track) {

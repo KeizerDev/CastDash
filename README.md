@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/KeizerDev/CastDash.png?label=ready&title=Ready)](https://waffle.io/KeizerDev/CastDash)
 # CastDash
 Dashboard for chromecast and collaborative music playing.
 

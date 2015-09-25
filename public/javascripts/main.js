@@ -3,8 +3,6 @@ jQuery(document).ready(function($) {
 
     var socket = io();
 
-
-
     var playButton = $('#playButton');
     var previousButton = $('#previousButton');
     var nextButton = $('#nextButton');
@@ -34,7 +32,8 @@ jQuery(document).ready(function($) {
         $('.search-form').submit(doSearch);
     };
 
-     function setPlayState(data) {
+
+    function setPlayState(data) {
         if (data == true) {
             if (currentAudio != null) {
                 currentAudio.pause();
@@ -76,7 +75,6 @@ jQuery(document).ready(function($) {
         }
     }
 
-
     function changeVolume() {
         socket.emit('setVolume', this.value);
     }
@@ -117,19 +115,22 @@ jQuery(document).ready(function($) {
     }
 
     function doSearch(event) {
-        searchVal = $('.search-form input').val();
+        var searchVal = $('.search-form input').val();
         $.getJSON(window.location.origin + '/pleer/' + searchVal, function(json) {
             $.get('templates/tracks.hbs', function (templateData) {
                 var template = Handlebars.compile(templateData);
                 $('.search-results').html(template(json));
-                $('.song-item').each(function() {
-                    $(this).click(function() {
-                        socket.emit('addSong', $(this).data('id'), $(this).data('artist'), $(this).data('track'));
-                    });
-                })
+                $('.song-item').each(addClickEvents)
             });
         });
         event.preventDefault();
+    }
+
+
+    function addClickEvents() {
+            $(this).click(function() {
+                socket.emit('addSong', $(this).data('id'), $(this).data('artist'), $(this).data('track'));
+            });
     }
 
     setEvenhandlers();
